@@ -1,18 +1,14 @@
-DROP TABLE IF EXISTS attendances;
-DROP TABLE IF EXISTS student_group;
-DROP TABLE IF EXISTS session_group;
-DROP TABLE IF EXISTS `groups`;
-DROP TABLE IF EXISTS sessions;
-DROP TABLE IF EXISTS classrooms;
-DROP TABLE IF EXISTS students;
-DROP TABLE IF EXISTS aa_teacher;
-DROP TABLE IF EXISTS aas;
-DROP TABLE IF EXISTS ues;
-DROP TABLE IF EXISTS teachers;
-DROP TABLE IF EXISTS school_years;
+<?php
+require_once '../connexion.php';
 
+function up()
+{
+    try {
+        global $pdo;
+        $sql = <<<sql
 CREATE TABLE IF NOT EXISTS school_years
 (
+    id            VARCHAR(50) NOT NULL,
     name            VARCHAR(50) NOT NULL,
     starts_at       DATE        NULL,
     ends_at         DATE        NULL,
@@ -190,3 +186,13 @@ CREATE TABLE IF NOT EXISTS attendances
     CONSTRAINT fk_attendances_session FOREIGN KEY (session_id) REFERENCES sessions (id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_attendances_student FOREIGN KEY (student_matricule) REFERENCES students (matricule) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+sql;
+
+        $pdo->exec($sql);
+    } catch (PDOException $e) {
+        echo "Erreur lors de la récupération des données : " . $e->getMessage();
+    }
+}
+
+up();

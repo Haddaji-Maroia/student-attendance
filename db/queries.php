@@ -10,7 +10,7 @@ function getAllStudents()
 
         return $stmt->fetchAll();
     } catch (PDOException $e) {
-        echo "Erreur lors de la récupération des données : " . $e->getMessage();
+        echo $e->getMessage();
     }
     return null;
 }

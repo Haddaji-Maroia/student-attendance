@@ -1,5 +1,6 @@
 <?php
 
+
 include __DIR__ . '/../connexion.php';
 
 function up(): void

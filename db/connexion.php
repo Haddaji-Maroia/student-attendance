@@ -1,9 +1,21 @@
 <?php
-$host = '127.0.0.1';
-$db_name = 'students';
-$user = 'root';
-$pass = '';
-$charset = 'utf8mb4'; 
+
+const PUBLIC_PATH = __DIR__;
+const APP_PATH = PUBLIC_PATH.'/..';
+const VENDOR_PATH = PUBLIC_PATH.'/../vendor';
+
+require VENDOR_PATH.'/autoload.php';
+dd('text');
+
+$dotenv = Dotenv\Dotenv::createImmutable(APP_PATH);
+$dotenv->load();
+
+
+$host = $_ENV['DB_HOST'];
+$db_name = $_ENV['DB_CONNECTION'];
+$user = $_ENV['DB_USERNAME'];
+$pass = $_ENV['DB_PASSWORD'];
+$charset = $_ENV['DB_CHARSET'];
 $dsn = "mysql:host=$host;dbname=$db_name;charset=$charset";
 
 $options = [
@@ -12,9 +24,8 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES => false,
 ];
 
-
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (PDOException $e) {
-    echo 'Erreur de connexion : ' . $e->getMessage();
+    echo 'Erreur de connexion : '.$e->getMessage();
 }

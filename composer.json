@@ -1,0 +1,14 @@
+{
+    "name": "marwahaddaji/student-attendance",
+    "description": "A small app for managing the attendences of students",
+    "type": "project",
+    "require": {
+        "php": "^8.5"
+    },
+    "authors": [
+        {
+            "name": "Haddaji-Maroia",
+            "email": "maroia.haddaji@student.hepl.be"
+        }
+    ]
+}

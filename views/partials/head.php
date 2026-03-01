@@ -7,4 +7,4 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <title><?php echo $title ?></title>
 </head>
-<body class="layout">
+<body class="layout"

@@ -31,5 +31,7 @@ switch ($_SERVER['REQUEST_URI']) {
         break;
     default:
         $title = '404';
-        include '../views/404.php';
+        include VIEWS_DIR. '/404.php';
 }
+
+

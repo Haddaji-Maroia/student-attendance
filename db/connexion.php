@@ -1,22 +1,19 @@
 <?php
 
-const PUBLIC_PATH = __DIR__;
-const APP_PATH = PUBLIC_PATH.'/..';
-const VENDOR_PATH = PUBLIC_PATH.'/../vendor';
+require_once '../vendor/autoload.php';
 
-require VENDOR_PATH.'/autoload.php';
-dd('text');
+if (!isset($dotenv)){
+    $dotenv = Dotenv\Dotenv::createImmutable(APP_PATH);
+    $dotenv->load();
+}
 
-$dotenv = Dotenv\Dotenv::createImmutable(APP_PATH);
-$dotenv->load();
-
-
+$connection = $_ENV['DB_CONNECTION'];
 $host = $_ENV['DB_HOST'];
-$db_name = $_ENV['DB_CONNECTION'];
+$db_name = $_ENV['DB_DATABASE'];
 $user = $_ENV['DB_USERNAME'];
 $pass = $_ENV['DB_PASSWORD'];
 $charset = $_ENV['DB_CHARSET'];
-$dsn = "mysql:host=$host;dbname=$db_name;charset=$charset";
+$dsn = "$connection:host=$host;dbname=$db_name;charset=$charset";
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

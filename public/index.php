@@ -8,8 +8,6 @@ require VENDOR_PATH . '/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(ROOT_PATH);
 $dotenv->load();
 
-include DB_PATH . '/queries.php';
-
 
 switch ($_SERVER['REQUEST_URI']) {
     case '':

@@ -3,7 +3,14 @@
     "description": "A small app for managing the attendences of students",
     "type": "project",
     "require": {
-        "php": "^8.5"
+        "php": "^8.5",
+        "vlucas/phpdotenv": "^5.6",
+      "ext-pdo": "*"
+    },
+    "autoload": {
+        "files": [
+            "toby/helpers/functions.php"
+        ]
     },
     "authors": [
         {

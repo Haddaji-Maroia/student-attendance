@@ -6,3 +6,5 @@ const APP_PATH = ROOT_PATH . '/app';
 const DB_PATH = ROOT_PATH . '/db';
 const VENDOR_PATH = ROOT_PATH . '/vendor';
 const VIEWS_PATH = ROOT_PATH . '/views';
+
+const CONTROLLERS_PATH = APP_PATH . '/Http/Controllers';

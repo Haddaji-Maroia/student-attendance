@@ -10,7 +10,10 @@
     "autoload": {
         "files": [
             "toby/helpers/functions.php"
-        ]
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        }
     },
     "authors": [
         {

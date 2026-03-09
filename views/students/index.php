@@ -1,9 +1,7 @@
 <?php include VIEWS_PATH . '/partials/head.php' ?>
 
-<?php global $title ?>
     <main class="page-main">
-        <h1><?php echo $title ?></h1>
-        <?php $students = getAllStudents(); ?>
+        <h1><?= $title ?></h1>
 
         <?php if (count($students) > 0): ?>
             <ol>

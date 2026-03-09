@@ -15,3 +15,11 @@ if (! function_exists('env')) {
         return $_ENV[$key] ?? $default;
     }
 }
+
+
+//if (! function_exists('home')){
+//    function home()
+//    {
+//
+//    }
+//}

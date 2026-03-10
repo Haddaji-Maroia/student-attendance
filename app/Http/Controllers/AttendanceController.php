@@ -8,7 +8,10 @@ class AttendanceController{
     {
         $title = 'Prendre les présences';
         $students = Student::getAllStudents();
-        include VIEWS_PATH . '/attendances/index.php';
+        view(
+            'attendances.index',
+            compact('title', 'students')
+        );
     }
 }
 

@@ -9,7 +9,10 @@ class StudentController
     {
         $title = 'Tous les étudiants';
         $students = Student:: getAllStudents();
-        include VIEWS_PATH . '/students/index.php';
+        view(
+            'students/index',
+            compact('title', 'students')
+        );
     }
 }
 

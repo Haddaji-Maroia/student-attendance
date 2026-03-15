@@ -15,6 +15,16 @@ class StudentController
             compact('title', 'students')
         );
     }
+
+    public function create(): void
+    {
+        $title = 'Ajouter un étudiant';
+
+        view(
+            'students.create',
+            compact('title')
+        );
+    }
 }
 
 

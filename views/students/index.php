@@ -18,7 +18,6 @@
         <div>
             <a href="/etudiants/create" class="action">Ajouter un étudiant</a>
         </div>
-
     </main>
 
 

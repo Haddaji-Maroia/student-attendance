@@ -15,7 +15,12 @@ class Router
     )
     {
         $this-> routes = include ROOT_PATH . '/routes.php';
-        $this->url = $_SERVER['REQUEST_URI'];
+
+        //nuovo link per la singola pagina
+        $this->url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+        //vecchio link per la pagina 
+        //$this->url = $_SERVER['REQUEST_URI'];
         $this->method = $_SERVER['REQUEST_METHOD'];
 
     }

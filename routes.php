@@ -38,6 +38,16 @@ return [
         ],
     ],
 
+    // Devoir pour afficher la fiche d'étudiant
+    [
+        'url' => '/etudiant',
+        'method' => 'get',
+        'action' => [
+            \App\Http\Controllers\StudentController::class,
+            'show',
+        ]
+    ],
+
     [
         'url' => '/etudiants/create',
         'method' => 'get',

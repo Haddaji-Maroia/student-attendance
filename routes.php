@@ -56,4 +56,22 @@ return [
             'create',
         ]
     ],
+
+    [
+        'url' => '/etudiant/edit',
+        'method' => 'get',
+        'action' => [
+            \App\Http\Controllers\StudentController::class,
+            'edit',
+        ]
+    ],
+
+    [
+        'url' => '/etudiant',
+        'method' => 'put',
+        'action' => [
+            \App\Http\Controllers\StudentController::class,
+            'update',
+        ]
+    ],
 ];

@@ -1,17 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Student;
 
 class StudentController
 {
+    private function check_id(): ?int
+    {
+        // Validation
+        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+            die('Bad Request');
+        }
+
+        // Sanitisation | Nettoyage | Préparation
+        return (int)$_GET['id'];
+    }
+
     public function index(): void
     {
         $title = 'Tous les étudiants';
-        $students = Student:: getAllStudents();
+        $students = Student::getAllStudents();
 
         view(
-            'students/index',
+            'students.index',
             compact('title', 'students')
         );
     }
@@ -28,53 +40,71 @@ class StudentController
 
     public function store(): void
     {
-        // controllo se il token esiste, se manca il server dice "Bad request"
-        if (!isset($_REQUEST['_token'], $_SESSION['token'])){
+        if (!isset($_REQUEST['_token'], $_SESSION['token'])) {
             die('bad request');
         }
 
-        // se la parola d'ordine che arriva dal modulo è diversa da quella salvata
-        // nella sessione, il server dice "Unauthorized" e ferma tutto
-        if($_REQUEST['_token'] !== $_SESSION['token']){
+        if ($_REQUEST['_token'] !== $_SESSION['token']) {
             die('unauthorized');
-        }
-        // Stocker un étudiant en DB
+        };
+// Stocker un étudiant en DB
 
-        // Demander au navigateur de se  rediriger vers la page de résultat souhaitée
+// Demander au navigateur de se rediriger vers la page de résultat souhaitée
         header('Location: /etudiants', response_code: 303);
     }
 
     public function show(): void
     {
-        // Validation
-        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-            die('Bad Request');
+            $id = $this->check_id();
+
+            // Récupération des données
+            $student = Student::find($id);
+
+            // Gestion d'un cas d'exception
+            if (!$student) {
+                die('Student not found');
+            }
+
+            $title = 'La fiche de ' . $student->first_name;
+
+            view('students.show',
+                compact(
+                    'title',
+                    'student'
+                )
+            );
+
+
         }
 
-        // Sanitisation | Nettoyage | Préparation
-        $id = (int)$_GET['id'];
+        public function edit(): void
+    {
+        $id = $this->check_id();
 
-        // Récupération des données
+// Récupération des données
         $student = Student::find($id);
 
-        // Gestion d'un cas d'exception
+// Gestion d'un cas d'exception
         if (!$student) {
             die('Student not found');
         }
 
         $title = 'La fiche de ' . $student->first_name;
 
-        view('students.show',
-            compact(
-                'title',
-                'student'
+        view('students.edit',
+            view('students.edit',
+                compact(
+                    'title',
+                    'student'
+                )
             )
-        );
-
-
+          );
     }
 
-}
+        public function update()
+    {
+        $id = $this->check_id();
 
-
-
+        die('oui, update');
+    }
+    }

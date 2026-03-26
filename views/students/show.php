@@ -3,6 +3,13 @@
     <main class="page-main">
         <h1><?= $title ?></h1>
 
+        <section class="resource-actions">
+            <h2 class="sr-only">Actions relatives à <?= $student->first_name ?> <?= $student->last_name ?></h2>
+            <ul>
+                <li><a href="/etudiant/edit?id=<?= $student->id ?>">Modifier <?= $student->first_name ?></a></li>
+            </ul>
+        </section>
+
         <dl>
             <div>
                 <dt>Prénom</dt>

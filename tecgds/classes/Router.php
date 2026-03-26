@@ -21,7 +21,7 @@ class Router
 
         //vecchio link per la pagina 
         //$this->url = $_SERVER['REQUEST_URI'];
-        $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->method = $_REQUEST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
     }
 

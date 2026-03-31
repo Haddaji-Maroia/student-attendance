@@ -18,30 +18,28 @@ if (! function_exists('env')) {
 
 
 if (! function_exists('db_connection')){
-    function db_connection(): ?PDO
+    function db_connection(): void
     {
-        $connection = $_ENV['DB_CONNECTION'];
-        $host = $_ENV['DB_HOST'];
-        $db_name = $_ENV['DB_DATABASE'];
-        $user = $_ENV['DB_USERNAME'];
-        $pass = $_ENV['DB_PASSWORD'];
-        $charset = $_ENV['DB_CHARSET'];
-        $dsn = "$connection:host=$host;dbname=$db_name;charset=$charset";
+        //creo una nuova capsula
+        $capsule = new \Illuminate\Database\Capsule\Manager();
 
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ];
+        //aggiungo la connessione
+        $capsule->addConnection([
+            'driver' => env('DB_CONNECTION'),
+            'host' => env('DB_HOST'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'charset' => env('DB_CHARSET'),
+            'collation' => env('DB_COLLATION'),
+            'prefix' => '',
+        ]);
 
-        try {
-            return $pdo = new PDO($dsn, $user, $pass, $options);
-        } catch (PDOException $e) {
-            echo 'Erreur de connexion : '.$e->getMessage();
-        }
+        //accetto che la mia capsula è globale
+        $capsule->setAsGlobal();
 
-        return  null;
-
+        //Je démarre eloquent
+        $capsule->bootEloquent();
     }
 }
 

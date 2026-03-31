@@ -11,6 +11,8 @@ include __DIR__.'/../connexion.php';
  * creation des étudiants
  */
 
+
+
 $students = require __DIR__ . '/data/students.php';
 
 Capsule::table('students')->truncate();

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use Tecgdcs\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class StudentController
 {
@@ -10,7 +12,7 @@ class StudentController
     {
         // Validation
         if (!isset($_REQUEST['id']) || !is_numeric($_REQUEST['id'])) {
-            die('Bad Request');
+            Response::abort(Response::BAD_REQUEST);
         }
 
         // Sanitisation | Nettoyage | Préparation
@@ -21,11 +23,11 @@ class StudentController
     {
 
         if (!isset($_REQUEST['_token'], $_SESSION['token'])) {
-            die('bad request');
+            Response::abort(Response::BAD_REQUEST);
         }
 
         if ($_REQUEST['_token'] !== $_SESSION['token']) {
-            die('unauthorized');
+            Response::abort(Response::UNAUTHORIZED);
         };
     }
     public function index(): void
@@ -68,7 +70,8 @@ class StudentController
 
 
         // Demander au navigateur de se rediriger vers la page de résultat souhaitée
-        header('Location: /etudiant?id=' . $student->id, response_code: 303);
+        Response::redirect('Location: /etudiant?id=' . $student->id);
+
     }
 
     public function show(): void
@@ -76,12 +79,16 @@ class StudentController
             $id = $this->check_id();
 
             // Récupération des données
-            $student = Student::find($id);
-
-            // Gestion d'un cas d'exception
-            if (!$student) {
-                die('Student not found');
+            try{
+                $student = Student::findOrFail($id);
+            }catch (ModelNotFoundException $e){
+                Response::abort();
             }
+
+//            // Gestion d'un cas d'exception
+//            if (!$student) {
+//                die('Student not found');
+//            }
 
             $title = 'La fiche de ' . $student->first_name;
 
@@ -99,24 +106,22 @@ class StudentController
     {
         $id = $this->check_id();
 
-// Récupération des données
-        $student = Student::find($id);
-
-// Gestion d'un cas d'exception
-        if (!$student) {
-            die('Student not found');
+        // findOrFail -> methode qui va generer une erreur 404
+        try{
+            $student = Student::findOrFail($id);
+        }catch (ModelNotFoundException $e){
+            Response::abort();
         }
+
 
         $title = 'La fiche de ' . $student->first_name;
 
         view('students.edit',
-            view('students.edit',
-                compact(
-                    'title',
-                    'student'
-                )
+            compact(
+                'title',
+                'student'
             )
-          );
+        );
     }
 
         public function update(): void
@@ -137,8 +142,8 @@ class StudentController
 
         $student->save();
 
-        header('Location: /etudiant?id=' . $student->id, response_code: 303);
 
+        Response::redirect('Location: /etudiant?id=' . $student->id);
     }
 
     public function destroy(): void
@@ -149,6 +154,7 @@ class StudentController
 
         Student::destroy($id);
 
-        header('Location: /etudiants', response_code : 303);
+        Response::redirect('Location: /etudiants');
+
     }
 }
